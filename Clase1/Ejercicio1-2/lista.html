@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .tarea-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .tarea-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        .tarea-item:last-child {
+            border-bottom: none;
+        }
+        .tarea-indice {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #3498db;
+        }
+        .motivacion {
+            text-align: center;
+            font-style: italic;
+            color: #7f8c8d;
+            margin-top: 20px;
+        }
+        .emoji {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>📋 Tus Tareas</h1>
+    
+    <div class="tarea-container" id="lista-tareas">
+        <!-- Las tareas se insertarán aquí con JavaScript -->
+    </div>
+    
+    <p class="motivacion">¡Tú puedes! 💪✨</p>
+
+    <script>
+        // 📝 Lista de tareas predefinidas
+        const tareas = [
+            "🛒 Comprar leche",
+            "🏋️‍♂️ Hacer ejercicio",
+            "📞 Llamar a mamá",
+            "💻 Estudiar NodeJS"
+        ];
+
+        // 🖨️ Función para mostrar las tareas en la página web
+        function mostrarTareas() {
+            const listaTareas = document.getElementById('lista-tareas');
+            
+            // Limpiar el contenedor primero
+            listaTareas.innerHTML = '';
+            
+            // Agregar cada tarea al contenedor
+            tareas.forEach((tarea, indice) => {
+                const divTarea = document.createElement('div');
+                divTarea.className = 'tarea-item';
+                
+                const spanIndice = document.createElement('span');
+                spanIndice.className = 'tarea-indice';
+                spanIndice.textContent = `${indice + 1}.`;
+                
+                divTarea.appendChild(spanIndice);
+                divTarea.innerHTML += tarea;
+                
+                listaTareas.appendChild(divTarea);
+            });
+        }
+
+        // 🚀 Mostrar las tareas cuando la página se carga
+        window.onload = mostrarTareas;
+    </script>
+</body>
+</html>

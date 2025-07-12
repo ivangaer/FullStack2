@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta por Razón Social 🇵🇾</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #16c2ce 0%, #2df0a5 100%);
+            min-height: 100vh;
+            margin: 0;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: rgba(30, 30, 60, 0.85);
+            padding: 48px 32px 32px 32px;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+            text-align: center;
+            width: 95%;
+            max-width: 520px;
+            position: relative;
+        }
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-shadow: 0 2px 8px #16c2ce55;
+        }
+        .input-group {
+            position: relative;
+            margin-bottom: 24px;
+        }
+        .input-group i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #16c2ce;
+            font-size: 1.2em;
+        }
+        input[type="text"] {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 15px 15px 15px 44px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            background: rgba(255,255,255,0.18);
+            color: #fff;
+            outline: none;
+            transition: box-shadow 0.2s;
+            box-shadow: 0 2px 8px #16c2ce22;
+        }
+        input[type="text"]:focus {
+            box-shadow: 0 0 0 2px #16c2ce88;
+            background: rgba(255,255,255,0.28);
+        }
+        input[type="text"]::placeholder {
+            color: #e0e0e0;
+            opacity: 0.8;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        button {
+            background: linear-gradient(90deg, #ff6f61 60%, #ffb86c 100%);
+            color: white;
+            padding: 13px 28px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.15em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px #ff6f6122;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #ff3b2f 60%, #ffb86c 100%);
+            transform: scale(1.07);
+            box-shadow: 0 4px 16px #ff6f6144;
+        }
+        .spectacular-button {
+            background: linear-gradient(90deg, #4CAF50 60%, #16c2ce 100%);
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 2px 8px #4CAF5022;
+        }
+        .spectacular-button:hover {
+            background: linear-gradient(90deg, #388e3c 60%, #16c2ce 100%);
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 #4CAF5044; }
+            50% { box-shadow: 0 0 0 8px #4CAF5022; }
+            100% { box-shadow: 0 0 0 0 #4CAF5044; }
+        }
+        #result {
+            margin-top: 18px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        #result.visible {
+            opacity: 1;
+        }
+        .result-card {
+            background: rgba(255,255,255,0.13);
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #16c2ce22;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            text-align: left;
+            animation: fadeInUp 0.7s;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .result-item {
+            margin-bottom: 7px;
+            font-size: 1.07em;
+        }
+        .result-item strong {
+            color: #16c2ce;
+            font-weight: 700;
+            margin-right: 6px;
+        }
+        .result-label {
+            display: inline-block;
+            min-width: 120px;
+        }
+        .result-icon {
+            margin-right: 7px;
+            color: #ffb86c;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #16c2ce33;
+            margin: 10px 0;
+        }
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container { padding: 24px 4px; }
+            h1 { font-size: 1.3em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fa-solid fa-building"></i> Consulta por Razón Social 🇵🇾</h1>
+        <div class="input-group">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" id="razonSocialInput" placeholder="Ingrese la Razón Social">
+        </div>
+        <div class="btn-group">
+            <button id="searchButton"><i class="fa-solid fa-magnifying-glass"></i> Buscar por Razón Social</button>
+            <button id="searchByRucButton" class="spectacular-button"><i class="fa-solid fa-id-card"></i> Buscar por RUC</button>
+        </div>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchButton = document.getElementById('searchButton');
+            const searchByRucButton = document.getElementById('searchByRucButton');
+            const razonSocialInput = document.getElementById('razonSocialInput');
+            const resultDiv = document.getElementById('result');
+
+            searchButton.addEventListener('click', async function() {
+                const razonSocial = razonSocialInput.value.trim();
+                if (!razonSocial) {
+                    alert("Por favor, ingrese una Razón Social válida.");
+                    return;
+                }
+                try {
+                    const response = await fetch(`/razonsocial?razonSocial=${encodeURIComponent(razonSocial)}`);
+                    if (!response.ok) {
+                        throw new Error("No se encontraron contribuyentes con esa Razón Social");
+                    }
+                    const data = await response.json();
+                    displayResult(data.resultados);
+                } catch (error) {
+                    resultDiv.innerHTML = `<div class="result-card"><p><i class="fa-solid fa-triangle-exclamation result-icon"></i>Error: ${error.message}</p></div>`;
+                    resultDiv.classList.add('visible');
+                }
+            });
+
+            razonSocialInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') searchButton.click();
+            });
+
+            searchByRucButton.addEventListener('click', function() {
+                window.location.href = '/';
+            });
+
+            function displayResult(contribuyentes) {
+                if (!contribuyentes || contribuyentes.length === 0) {
+                    resultDiv.innerHTML = `<div class="result-card"><p><i class="fa-solid fa-circle-info result-icon"></i>No se encontraron contribuyentes con esa Razón Social.</p></div>`;
+                    resultDiv.classList.add('visible');
+                    return;
+                }
+                let html = '';
+                contribuyentes.forEach(contribuyente => {
+                    html += `
+                        <div class="result-card">
+                            <div class="result-item"><span class="result-label"><i class="fa-solid fa-id-card result-icon"></i><strong>RUC:</strong></span> ${contribuyente.ruc}</div>
+                            <div class="result-item"><span class="result-label"><i class="fa-solid fa-building result-icon"></i><strong>Razón Social:</strong></span> ${contribuyente.razonSocial}</div>
+                            <div class="result-item"><span class="result-label"><i class="fa-solid fa-hashtag result-icon"></i><strong>Dígito Verificador:</strong></span> ${contribuyente.digitoVerificador}</div>
+                            <div class="result-item"><span class="result-label"><i class="fa-solid fa-clock-rotate-left result-icon"></i><strong>RUC Anterior:</strong></span> ${contribuyente.rucAnterior || 'N/A'}</div>
+                            <div class="result-item"><span class="result-label"><i class="fa-solid fa-circle-check result-icon"></i><strong>Estado:</strong></span> ${contribuyente.estado}</div>
+                        </div>
+                    `;
+                });
+                resultDiv.innerHTML = html;
+                resultDiv.classList.add('visible');
+            }
+        });
+    </script>
+</body>
+</html>

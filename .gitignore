@@ -1,0 +1,82 @@
+# Node.js
+node_modules/
+dist/
+build/
+coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+ENV/
+*.egg-info/
+*.egg
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+target/
+out/
+
+# Go
+bin/
+pkg/
+
+# Rust
+target/
+
+# PHP
+vendor/
+
+# .NET
+*.dll
+*.exe
+*.pdb
+*.cache
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS/IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.bak
+*.tmp
+
+# Environment/config
+.env
+.env.*
+*.env
+*.log
+
+# Git directories from submodules or clones
+.git/
+.gitmodules
+
+# Others
+*.iml
+*.lock
+*.orig
+
+# Ignore all folders named node_modules, dist, build, env, venv, vendor, target, out anywhere
+**/node_modules/
+**/dist/
+**/build/
+**/env/
+**/venv/
+**/vendor/
+**/target/
+**/out/
+**/__pycache__/
