@@ -19,14 +19,14 @@ const Dashboard = () => {
   const [nuevosClientes, setNuevosClientes] = useState(0);
 
   useEffect(() => {
-    // Datos ficticios para los KPI
-    setProductosProducidos(1200);
-    setTotalClientes(350);
-    setOrdenesServicio(450);
-    setNuevosClientes(50);
+    // Datos ficticios mejorados para los KPI
+    setProductosProducidos(1875);
+    setTotalClientes(420);
+    setOrdenesServicio(520);
+    setNuevosClientes(65);
 
-    // Gráfico de Clientes Registrados por Mes
-    const clientesPorMes = [50, 70, 90, 120, 150, 180, 200, 220, 250, 280, 300, 350];
+    // Clientes registrados por mes (más variación)
+    const clientesPorMes = [35, 52, 68, 95, 120, 140, 160, 185, 210, 230, 250, 420];
     const meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
     const clientChart = new Chart(productChartRef.current!, {
@@ -128,56 +128,43 @@ const Dashboard = () => {
       <section className="content">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-lg-3 col-6">
-              <div className="small-box" style={{ backgroundColor: "#84A238" }}>
-                <div className="inner">
-                  <h3 style={{ color: "#ffffff" }}>{productosProducidos}</h3>
-                  <p style={{ color: "#ffffff" }}>Productos Producidos</p>
-                </div>
-                <div className="icon" style={{ color: "#BFD496" }}>
-                  <i className="fas fa-box" />
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-3 col-6">
-              <div className="small-box" style={{ backgroundColor: "#EA5F7D" }}>
-                <div className="inner">
-                  <h3 style={{ color: "#ffffff" }}>{totalClientes}</h3>
-                  <p style={{ color: "#ffffff" }}>Clientes Totales</p>
-                </div>
-                <div className="icon" style={{ color: "#ffadad" }}>
-                  <i className="fas fa-users" />
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-3 col-6">
-              <div className="small-box" style={{ backgroundColor: "#23B5C2" }}>
-                <div className="inner">
-                  <h3 style={{ color: "#ffffff" }}>{ordenesServicio}</h3>
-                  <p style={{ color: "#ffffff" }}>Órdenes de Servicio</p>
-                </div>
-                <div className="icon" style={{ color: "#b1ebf0" }}>
-                  <i className="fas fa-file-alt" />
+            {[
+              { value: productosProducidos, label: "Productos Producidos", color: "#6366f1", icon: "fas fa-box" },
+              { value: totalClientes, label: "Clientes Totales", color: "#06b6d4", icon: "fas fa-users" },
+              { value: ordenesServicio, label: "Órdenes de Servicio", color: "#84A238", icon: "fas fa-file-alt" },
+              { value: nuevosClientes, label: "Nuevos Clientes", color: "#EA5F7D", icon: "fas fa-user-plus" }
+            ].map((kpi, idx) => (
+              <div className="col-lg-3 col-6" key={idx}>
+                <div className="small-box" style={{
+                  background: `linear-gradient(135deg, ${kpi.color} 60%, #fff 100%)`,
+                  borderRadius: "18px",
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+                  padding: "18px"
+                }}>
+                  <div className="inner">
+                    <h3 style={{ color: "#fff", fontWeight: 700 }}>{kpi.value}</h3>
+                    <p style={{ color: "#fff", fontWeight: 500 }}>{kpi.label}</p>
+                  </div>
+                  <div className="icon" style={{ color: "#fff", fontSize: "2em" }}>
+                    <i className={kpi.icon} />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-3 col-6">
-              <div className="small-box" style={{ backgroundColor: "#FAB733" }}>
-                <div className="inner">
-                  <h3 style={{ color: "#ffffff" }}>{nuevosClientes}</h3>
-                  <p style={{ color: "#ffffff" }}>Nuevos Clientes</p>
-                </div>
-                <div className="icon" style={{ color: "#f0d77d" }}>
-                  <i className="fas fa-user-plus" />
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
           <div className="row">
             <div className="col-lg-6">
-              <div className="card" style={{ height: "400px" }}>
-                <div className="card-header" style={{ backgroundColor: "#ffffff" }}>
-                  <h3 className="card-title">Clientes Registrados por Mes</h3>
+              <div className="card" style={{
+                height: "400px",
+                borderRadius: "18px",
+                boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+                marginBottom: "24px"
+              }}>
+                <div className="card-header" style={{
+                  background: "#f3f4f6",
+                  borderRadius: "18px 18px 0 0"
+                }}>
+                  <h3 className="card-title" style={{ color: "#6366f1", fontWeight: 600 }}>Clientes Registrados por Mes</h3>
                 </div>
                 <div className="card-body">
                   <canvas id="productChart" ref={productChartRef}></canvas>
